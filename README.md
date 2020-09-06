@@ -1,1 +1,1 @@
-# rock-paper-scissors-playground
+# rock-paper-scissors-arena
