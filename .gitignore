@@ -50,8 +50,8 @@ gradle-app.setting
 .settings
 
 # Idea
-.idea/*
 .idea
+**/.idea/*
 *.iml
 *.iws
 *.ipr
