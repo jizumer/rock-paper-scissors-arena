@@ -1,1 +1,10 @@
 rootProject.name = 'rock-paper-scissors-arena'
+
+include ':core'
+project(':core').projectDir = new File('src/core')
+
+include ':dashboard'
+project(':dashboard').projectDir = new File('src/dashboard')
+
+include ':playground'
+project(':playground').projectDir = new File('src/playground')

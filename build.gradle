@@ -1,24 +1,96 @@
-plugins {
-	id 'org.springframework.boot' version '2.3.3.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    group = 'com.github.jizumer.rps'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '1.11'
+    targetCompatibility = '1.11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter:2.3.3.RELEASE'
+        testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+subprojects {
+    group = "com.github.jizumer.rps.${rootProject.name}"
+
+    sourceSets {
+        main {
+            java { srcDirs = ['main'] }
+            resources { srcDirs = ['main/resources'] }
+        }
+
+        test {
+            java { srcDirs = ['test'] }
+            resources { srcDirs = ['test/resources'] }
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.3.3.RELEASE'
+
+        testImplementation rootProject.sourceSets.main.output
+        testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE'
+
+        if (project.name != "core") {
+            implementation project(":core")
+            testImplementation project(":core").sourceSets.test.output
+        }
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
+    }
 }
 
-group = 'com.github.jizumer'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-repositories {
-	mavenCentral()
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:2.3.3.RELEASE')
+    }
 }
+
+sourceSets {
+    main {
+        java { srcDirs = ['apps/main'] }
+        resources { srcDirs = ['apps/main/resources'] }
+    }
+
+    test {
+        java { srcDirs = ['apps/test'] }
+        resources { srcDirs = ['apps/test/resources'] }
+    }
+}
+
+apply plugin: 'application'
+
+mainClassName = 'com.github.jizumer.rps.apps.Boot'
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-}
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.3.RELEASE'
 
-test {
-	useJUnitPlatform()
+    implementation project(":core")
+    implementation project(":dashboard")
+    implementation project(":playground")
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE'
+    testImplementation project(":core").sourceSets.test.output
 }

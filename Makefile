@@ -6,6 +6,9 @@ build:
 test:
 	@./gradlew test --warning-mode all
 
+run:
+	@./gradlew :run
+
 boot:
 	@docker-compose up -d
 
