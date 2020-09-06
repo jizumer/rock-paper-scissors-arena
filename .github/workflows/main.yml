@@ -19,3 +19,9 @@ jobs:
 
       - name: Build with Gradle, leveraging on Makefile
         run: make test
+
+      - name: Bootstrap container
+        run: docker-compose up -d
+
+      - name: Container tests
+        run: make container-test

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  rock.paper.scissors:
+    container_name: rock.paper.scissors
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    restart: always
+    ports:
+      - "8080:8080"
+    tty: true
