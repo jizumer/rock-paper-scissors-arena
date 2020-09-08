@@ -29,18 +29,8 @@ public final class RoundPlayController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    final class RoundPlayControllerRequest {
 
-        private String idUser;
-
-        public String getIdUser() {
-            return idUser;
-        }
-
-        public void setIdUser(String idUser) {
-            this.idUser = idUser;
-        }
-    }
 
 
 }
+
