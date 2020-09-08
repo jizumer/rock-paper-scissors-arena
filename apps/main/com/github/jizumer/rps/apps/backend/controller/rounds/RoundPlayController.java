@@ -23,13 +23,11 @@ public final class RoundPlayController {
 
         //RoundPlayer is the application service. It could be called RoundCreator to differentiate its naming from
         //Player entity.
-        this.roundPlayer.playRound(new RoundPlayerRequest(idRound, roundPlayControllerRequest.getIdUser()));
+        this.roundPlayer.playRound(new RoundPlayerRequest(roundPlayControllerRequest.getIdUser(), idRound));
 
         //As id is received, it is considered a PUT, and we will not return any data despite of the HTTP status.
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
-
 
 
 }
