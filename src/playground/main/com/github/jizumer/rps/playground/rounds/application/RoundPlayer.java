@@ -23,7 +23,7 @@ public class RoundPlayer {
     public void playRound(RoundPlayerRequest request) {
 
         roundRepository.save(new Round(new RoundId(request.getIdRound()),
-                new RandomPlayer(new PlayerId(request.getIdUser())),
+                new RandomPlayer(new PlayerId(request.getIdPlayer())),
                 new AlwaysRockPlayer(UUID.randomUUID().toString())));
     }
 }

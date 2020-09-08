@@ -13,7 +13,7 @@ final class RoundPlayControllerTest extends ApiInfrastructureTest {
         assertRequestWithBody(
                 "PUT",
                 "/rounds/play/" + randomId,
-                "{\"idUser\": \"user01\"}",
+                "{\"idPlayer\": \"player01\"}",
                 201
         );
     }

@@ -18,15 +18,17 @@ public final class RoundPlayController {
     }
 
     //It is a PUT method, since Id comes previously generated from caller.
+    @SuppressWarnings("rawtypes")
     @PutMapping(value = "/rounds/play/{idRound}")
-    public ResponseEntity<String> play(@PathVariable String idRound, @RequestBody RoundPlayControllerRequest roundPlayControllerRequest) {
+    public ResponseEntity play(@PathVariable String idRound, @RequestBody RoundPlayControllerRequest roundPlayControllerRequest) {
 
         //RoundPlayer is the application service. It could be called RoundCreator to differentiate its naming from
         //Player entity.
-        this.roundPlayer.playRound(new RoundPlayerRequest(roundPlayControllerRequest.getIdUser(), idRound));
+        this.roundPlayer.playRound(new RoundPlayerRequest(roundPlayControllerRequest.getIdPlayer(), idRound));
 
         //As id is received, it is considered a PUT, and we will not return any data despite of the HTTP status.
         return new ResponseEntity(HttpStatus.CREATED);
+        //Control error is required, returning the right HTTP status codes
     }
 
 

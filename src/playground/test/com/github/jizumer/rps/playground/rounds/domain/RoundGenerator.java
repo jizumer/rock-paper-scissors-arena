@@ -9,7 +9,7 @@ public final class RoundGenerator {
 
         //There is a rule that states that player 1 will play randomly, and player 2 will always play rock
         return new Round(new RoundId(request.getIdRound()),
-                new RandomPlayer(new PlayerId(request.getIdUser())),
+                new RandomPlayer(new PlayerId(request.getIdPlayer())),
                 new AlwaysRockPlayer(UUID.randomUUID().toString()));
     }
 
