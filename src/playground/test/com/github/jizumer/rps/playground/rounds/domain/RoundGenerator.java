@@ -12,4 +12,14 @@ public final class RoundGenerator {
                 new RandomPlayer(new PlayerId(request.getIdUser())),
                 new AlwaysRockPlayer(UUID.randomUUID().toString()));
     }
+
+    public static Round random() {
+        return build(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+    }
+
+    private static Round build(String idRound, String idPlayer) {
+        return new Round(RoundIdGenerator.generate(idRound),
+                new RandomPlayer(new PlayerId(idPlayer)),
+                new AlwaysRockPlayer(UUID.randomUUID().toString()));
+    }
 }
