@@ -4,7 +4,7 @@ import com.github.jizumer.rps.apps.ApiInfrastructureTest;
 import org.junit.jupiter.api.Test;
 
 
-class HealthGetControllerTest extends ApiInfrastructureTest {
+final class HealthGetControllerTest extends ApiInfrastructureTest {
 
 
     @Test
