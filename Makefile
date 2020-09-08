@@ -7,7 +7,10 @@ test:
 	@./gradlew test --warning-mode all
 
 run:
-	@./gradlew :run
+	@./gradlew run
+
+clean:
+	@./gradlew clean
 
 boot:
 	@docker-compose up -d
