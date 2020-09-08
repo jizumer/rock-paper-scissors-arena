@@ -4,12 +4,13 @@ import com.github.jizumer.rps.core.infrastructure.InfrastructureTestCase;
 import com.github.jizumer.rps.playground.rounds.domain.Round;
 import com.github.jizumer.rps.playground.rounds.domain.RoundGenerator;
 import com.github.jizumer.rps.playground.rounds.domain.RoundIdGenerator;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class InMemoryRoundRepositoryTest extends InfrastructureTestCase {
@@ -28,7 +29,15 @@ final class InMemoryRoundRepositoryTest extends InfrastructureTestCase {
 
     @Test
     void shouldReturnAPreviouslySavedRound() {
-        Assert.assertFalse(repository.search(RoundIdGenerator.random()).isPresent());
+        Round randomRound = RoundGenerator.random();
+        repository.save(randomRound);
+        Optional<Round> returnedOptional = repository.search(randomRound.getId());
+        assertTrue(returnedOptional.isPresent());
+        assertEquals(randomRound, returnedOptional.get());
+    }
 
+    @Test
+    void shouldNotReturnARoundNotPreviouslySaved() {
+        assertFalse(repository.search(RoundIdGenerator.random()).isPresent());
     }
 }

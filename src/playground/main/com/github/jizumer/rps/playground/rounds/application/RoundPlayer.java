@@ -21,6 +21,7 @@ public class RoundPlayer {
 
     //Here is where we apply the rule of playing rounds with a random player and an always-rock player
     public void playRound(RoundPlayerRequest request) {
+
         roundRepository.save(new Round(new RoundId(request.getIdRound()),
                 new RandomPlayer(new PlayerId(request.getIdUser())),
                 new AlwaysRockPlayer(UUID.randomUUID().toString())));

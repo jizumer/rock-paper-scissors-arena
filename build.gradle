@@ -95,5 +95,5 @@ dependencies {
     implementation project(":playground")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE'
-    //testImplementation project(":core").sourceSets.test.output
+    testImplementation project(":core").sourceSets.test.output
 }
