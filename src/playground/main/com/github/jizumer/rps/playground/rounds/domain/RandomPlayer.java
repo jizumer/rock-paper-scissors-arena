@@ -5,15 +5,15 @@ import java.util.Random;
 
 public class RandomPlayer implements Player {
 
-    private final String id;
+    private final PlayerId id;
 
-    public RandomPlayer(String id) {
+    public RandomPlayer(PlayerId id) {
         this.id = id;
     }
 
     @Override
     public String id() {
-        return id;
+        return id.value();
     }
 
     @Override
