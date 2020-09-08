@@ -15,9 +15,9 @@ public final class Round {
         this.result = play();
     }
 
-    //Here is where real RPS algorithm takes place. We push the logic towards entities.
+
     private RoundResult play() {
-        return null;
+        return Referee.decide(player1.play(), player2.play());
     }
 
     public RoundId getId() {
