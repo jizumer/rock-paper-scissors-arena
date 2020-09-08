@@ -33,6 +33,7 @@ public class RoundPlayerTest {
         RoundPlayerRequest request = new RoundPlayerRequest(UuidGenerator.random(),
                 UuidGenerator.random());
         Round expectedCreatedEntity = RoundGenerator.toEntity(request);
+        roundPlayer.playRound(request);
         verify(repo, Mockito.atLeastOnce()).save(expectedCreatedEntity);
     }
 }

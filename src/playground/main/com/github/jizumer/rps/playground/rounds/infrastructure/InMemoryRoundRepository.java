@@ -1,10 +1,12 @@
 package com.github.jizumer.rps.playground.rounds.infrastructure;
 
 import com.github.jizumer.rps.playground.rounds.domain.Round;
+import com.github.jizumer.rps.playground.rounds.domain.RoundId;
 import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 
 @Service
@@ -20,4 +22,7 @@ public final class InMemoryRoundRepository implements RoundRepository {
         rounds.put(round.getId().getValue(), round);
     }
 
+    public Optional<Round> search(RoundId id) {
+        return Optional.ofNullable(rounds.get(id.getValue()));
+    }
 }

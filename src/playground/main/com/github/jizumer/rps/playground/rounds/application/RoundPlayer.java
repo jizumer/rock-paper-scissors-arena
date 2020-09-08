@@ -3,6 +3,8 @@ package com.github.jizumer.rps.playground.rounds.application;
 import com.github.jizumer.rps.playground.rounds.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 
 //This annotation should be avoided outside the infrastructure layer. Alternatives are extracting context configuration
 //to an xml, or making this class abstract and inheriting it in the infrastructure layer. In this case, we have let it
@@ -20,7 +22,7 @@ public class RoundPlayer {
     //Here is where we apply the rule of playing rounds with a random player and an always-rock player
     public void playRound(RoundPlayerRequest request) {
         roundRepository.save(new Round(new RoundId(request.getId()),
-                new RandomPlayer(),
-                new AlwaysRockPlayer()));
+                new RandomPlayer(UUID.randomUUID().toString()),
+                new AlwaysRockPlayer(UUID.randomUUID().toString())));
     }
 }
