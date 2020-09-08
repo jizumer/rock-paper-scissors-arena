@@ -3,22 +3,20 @@ package com.github.jizumer.rps.playground.rounds.application;
 import java.util.Objects;
 
 public class RoundPlayerRequest {
+    private final String idUser;
+    private final String idRound;
 
-    private final String id;
-    private final String userId;
-
-
-    public RoundPlayerRequest(String id, String userId) {
-        this.id = id;
-        this.userId = userId;
+    public RoundPlayerRequest(String idUser, String idRound) {
+        this.idUser = idUser;
+        this.idRound = idRound;
     }
 
-    public String getId() {
-        return id;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getIdRound() {
+        return idRound;
     }
 
     @Override
@@ -26,12 +24,12 @@ public class RoundPlayerRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoundPlayerRequest that = (RoundPlayerRequest) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(userId, that.userId);
+        return Objects.equals(idUser, that.idUser) &&
+                Objects.equals(idRound, that.idRound);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId);
+        return Objects.hash(idUser, idRound);
     }
 }
