@@ -4,10 +4,7 @@ import com.github.jizumer.rps.playground.rounds.application.RoundPlayer;
 import com.github.jizumer.rps.playground.rounds.application.RoundPlayerRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public final class RoundPlayController {
@@ -19,6 +16,8 @@ public final class RoundPlayController {
 
     //It is a PUT method, since Id comes previously generated from caller.
     @SuppressWarnings("rawtypes")
+    //CrossOrigin disabled only for test purposes
+    @CrossOrigin(origins = "*")
     @PutMapping(value = "/rounds/play/{idRound}")
     public ResponseEntity play(@PathVariable String idRound, @RequestBody RoundPlayControllerRequest roundPlayControllerRequest) {
 

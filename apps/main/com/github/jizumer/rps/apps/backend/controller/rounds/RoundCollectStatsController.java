@@ -4,6 +4,7 @@ import com.github.jizumer.rps.playground.stats.application.StatsCollector;
 import com.github.jizumer.rps.playground.stats.domain.Stats;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,8 @@ public final class RoundCollectStatsController {
         this.statsCollector = statsCollector;
     }
 
+    //Only for test purposes
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/stats")
     public ResponseEntity<Stats> collectStats() {
 

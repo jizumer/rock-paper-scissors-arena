@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class HealthGetController {
+public class FrontendHealthGetController {
 
-    @GetMapping("/health")
+    @GetMapping("/frontend-health")
     public Map<String, String> index() {
         return Map.of("frontend-status", "ok");
     }

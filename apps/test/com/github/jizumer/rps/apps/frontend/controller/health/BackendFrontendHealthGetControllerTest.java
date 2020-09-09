@@ -3,7 +3,7 @@ package com.github.jizumer.rps.apps.frontend.controller.health;
 import com.github.jizumer.rps.apps.ApiInfrastructureTest;
 import org.junit.jupiter.api.Test;
 
-final class HealthGetControllerTest extends ApiInfrastructureTest {
+final class BackendFrontendHealthGetControllerTest extends ApiInfrastructureTest {
 
 
     @Test
