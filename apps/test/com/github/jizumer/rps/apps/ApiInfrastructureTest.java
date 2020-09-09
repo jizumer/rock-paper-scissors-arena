@@ -23,10 +23,13 @@ public abstract class ApiInfrastructureTest {
     @Autowired
     private MockMvc mockMvc;
 
-    public void assertResponse(
-            String endpoint,
-            Integer expectedStatusCode,
-            String expectedResponse
+    public void assertStatusCode(String endpoint, Integer expectedStatusCode) throws Exception {
+        mockMvc
+                .perform(get(endpoint))
+                .andExpect(status().is(expectedStatusCode));
+    }
+
+    public void assertResponse(String endpoint, Integer expectedStatusCode, String expectedResponse
     ) throws Exception {
         ResultMatcher response = expectedResponse.isEmpty()
                 ? content().string("")
@@ -38,11 +41,7 @@ public abstract class ApiInfrastructureTest {
                 .andExpect(response);
     }
 
-    public void assertRequestWithBody(
-            String method,
-            String endpoint,
-            String body,
-            Integer expectedStatusCode
+    public void assertRequestWithBody(String method, String endpoint, String body, Integer expectedStatusCode
     ) throws Exception {
         mockMvc
                 .perform(request(HttpMethod.valueOf(method), endpoint).content(body).contentType(APPLICATION_JSON))
