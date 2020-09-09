@@ -13,7 +13,8 @@ Consists on an implementation of Rock, Paper, Scissors game.
 * Backend source code in a mono-repo approach. It's Java based, structured with gradle. This configuration is a 
 proposal for a single repository, that would allow to deploy different applications based on the same bounded contexts.
 * The source code is distributed in contexts, modules and aggregates. The logic has been pushed towards domain entities
-as far as the proposed statement allows it.
+as far as the proposed statement allows it. There are typical Hex Architecture layers, and application and domain services
+have been identified.
 * There are two main contexts identified: "dashboard" and "playground". Although it has not been possible to promote domain
 objects from one domain to the other, both have been created in order to illustrate this approach and for discussion.
 * There is also a "core" domain, for shared resources between different potential parts of the codebase and even the
@@ -57,6 +58,10 @@ objects from one domain to the other, both have been created in order to illustr
  of facing future codebase growth.
  * External configuration has not been addressed because it has not been considered within scope, and because the statement
  problem accepts very little configuration at the moment.
+ * As mentioned before, this project structure is a proposal for deploying different apps leveraging on the same
+ domain classes. For now, only the backend is available, so there is a main Boot class that scans the whole classpath
+ to instantiate beans. When other apps are included, it is intended to evolve to a more complex bootstrap system that
+ boot app-specific context depending on the received commanline arguments or other configurations.
  
 ### Some helpers 
 
@@ -87,6 +92,69 @@ To run the app locally:
 ```
 make run
 ``` 
+And that's it. Now once the application is running, by default, it will be accessible in `http://localhost:8080`. 
+
+
+### API endpoints
+
+These are the endpoints that will be reachable:
+
+_NOTE: Id's are expected to be UUIDs_
+
+Plays a new round between current player (indicated by POST). Player 1 is considered the real user, and will make
+a random move (rock, paper or scissors). Player 2 will always make the same move: rock.
+```
+[PUT]
+/rounds/play/{idRound}
+```
+In the POST data, there will be necessarily included idPlayer. This way of representing the data is intendet to store
+more information when a new entity is stored in the database.
+```json
+{
+    "idPlayer": "0f749880-a9c8-46ce-ad56-b74f9d8dff14"
+}
+```
+
+Get the rounds played by player indicated by `idPlayer` currently stored in database.
+
+```
+[GET]
+/rounds/player/{idPlayer}
+```
+Collect statistics about totals:
+
+* Total number of rounds.
+* Total wins for 1st players.
+* Total wins for 2nd players.
+* Total draws.
+
+```
+/stats
+```
+There are also health checks included, for orchestration or load balancing.
+
+```
+[GET]
+/health
+/frontend-health
+```
+This data is intendet to be processed by the second domain classes (dashboard), and received through an event bus, or
+any other kind of asynchronous event sourcing system.
+ 
+The resulting data will look like this:
+
+```json
+{
+    "player1Wins": 0,
+    "player2Wins": 0,
+    "draws": 0,
+    "totalRounds": 0
+}
+```
+
+
+## Other commands
+
 To clean the workspace:
 ```
 make clean
