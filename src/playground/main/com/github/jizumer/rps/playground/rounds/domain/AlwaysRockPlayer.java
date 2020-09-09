@@ -11,7 +11,7 @@ public class AlwaysRockPlayer implements Player {
     }
 
     @Override
-    public String id() {
+    public String getId() {
         return null;
     }
 

@@ -74,7 +74,7 @@ final class InMemoryRoundRepositoryTest extends InfrastructureTestCase {
         assertTrue(rounds.stream().allMatch(round ->
                 round
                         .getPlayer1()
-                        .id()
+                        .getId()
                         .equals(playerId.toString())));
     }
 }

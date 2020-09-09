@@ -1,6 +1,7 @@
 package com.github.jizumer.rps.playground.rounds.domain;
 
 public interface Player {
-    String id();
+    String getId();
+
     Move play();
 }

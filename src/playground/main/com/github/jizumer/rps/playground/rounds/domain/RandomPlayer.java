@@ -12,13 +12,13 @@ public class RandomPlayer implements Player {
     }
 
     @Override
-    public String id() {
+    public String getId() {
         return id.value();
     }
 
     @Override
     public Move play() {
-        return Move.values()[new Random().nextInt(2)];
+        return Move.values()[new Random().nextInt(3)];
     }
 
     @Override

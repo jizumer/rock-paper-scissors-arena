@@ -35,7 +35,7 @@ public final class InMemoryRoundRepository implements RoundRepository {
                 .stream()
                 .filter(round -> round.
                         getPlayer1()
-                        .id()
+                        .getId()
                         .equals(criteria
                                 .getFirstPlayerId()))
                 .collect(Collectors.toList());
