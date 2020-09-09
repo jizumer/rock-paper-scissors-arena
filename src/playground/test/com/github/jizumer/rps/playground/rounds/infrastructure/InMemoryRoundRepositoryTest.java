@@ -53,4 +53,28 @@ final class InMemoryRoundRepositoryTest extends InfrastructureTestCase {
         assertEquals(1, rounds.size());
         assertEquals(round1Id.getValue(), rounds.get(0).getId().getValue());
     }
+
+    @Test
+    void shouldFindOnlyRoundsPlayedByAGivenPlayerBetweenOthersPreviouslySavedRounds() {
+        PlayerId playerId = new PlayerId(UUID.randomUUID().toString());
+        RoundId round1Id = RoundIdGenerator.random();
+        Round firsRound = RoundGenerator.buildFromIds(round1Id.getValue(), playerId.toString());
+        repository.save(firsRound);
+
+        Round secondRound = RoundGenerator.buildFromIds(RoundIdGenerator.random().getValue(), playerId.toString());
+        repository.save(secondRound);
+
+        Round thirdRoundPlayedByOtherPlayer = RoundGenerator.buildFromIds(RoundIdGenerator.random().getValue(),
+                UUID.randomUUID().toString());
+        repository.save(thirdRoundPlayedByOtherPlayer);
+
+        RoundCriteria criteria = new RoundCriteria(playerId);
+        List<Round> rounds = repository.searchByCriteria(criteria);
+        assertEquals(2, rounds.size());
+        assertTrue(rounds.stream().allMatch(round ->
+                round
+                        .getPlayer1()
+                        .id()
+                        .equals(playerId.toString())));
+    }
 }
