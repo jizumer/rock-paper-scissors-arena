@@ -5,6 +5,7 @@ import com.github.jizumer.rps.playground.rounds.application.RoundSearcherRequest
 import com.github.jizumer.rps.playground.rounds.domain.Round;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,8 @@ public final class RoundSearchByFirstPlayerIdController {
         this.roundSearcher = roundSearcher;
     }
 
+    //CrossOrigin disabled only for test purposes
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/rounds/player/{idPlayer}")
     public ResponseEntity<List<Round>> searchByFirstPlayerId(@PathVariable String idPlayer) {
 
