@@ -8,24 +8,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class RoundPlayerTest {
 
     @Mock
-    RoundRepository repo;
+    RoundRepository roundRepository;
 
     @InjectMocks
     RoundPlayer roundPlayer;
 
     @BeforeEach
     protected void setUp() {
-        roundPlayer = new RoundPlayer(repo);
+        roundPlayer = new RoundPlayer(roundRepository);
     }
 
     @Test
@@ -33,6 +33,6 @@ public class RoundPlayerTest {
         RoundPlayerRequest request = new RoundPlayerRequest(UuidGenerator.random(),
                 UuidGenerator.random());
         roundPlayer.playRound(request);
-        verify(repo, Mockito.atLeastOnce()).save(any(Round.class));
+        verify(roundRepository, atLeastOnce()).save(any(Round.class));
     }
 }

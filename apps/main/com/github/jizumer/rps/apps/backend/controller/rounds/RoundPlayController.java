@@ -28,7 +28,7 @@ public final class RoundPlayController {
 
         //As id is received, it is considered a PUT, and we will not return any data despite of the HTTP status.
         return new ResponseEntity(HttpStatus.CREATED);
-        //Control error is required, returning the right HTTP status codes
+        //Error control is required, returning the right HTTP status codes
     }
 
 

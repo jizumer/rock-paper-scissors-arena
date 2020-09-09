@@ -10,4 +10,6 @@ public interface RoundRepository {
     Optional<Round> search(RoundId id);
 
     List<Round> searchByCriteria(RoundCriteria criteria);
+
+    long countByResult(RoundResult draw);
 }

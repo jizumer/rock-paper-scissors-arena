@@ -26,7 +26,7 @@ public final class RoundSearchByFirstPlayerIdController {
         List<Round> foundRounds = roundSearcher.searchByCriteria(new RoundSearcherRequest(idPlayer));
 
         return new ResponseEntity<>(foundRounds, HttpStatus.OK);
-        //Control error is required, returning the right HTTP status codes
+        //Error control is required, returning the right HTTP status codes
     }
 
 

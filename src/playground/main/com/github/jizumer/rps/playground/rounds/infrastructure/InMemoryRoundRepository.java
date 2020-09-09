@@ -1,9 +1,6 @@
 package com.github.jizumer.rps.playground.rounds.infrastructure;
 
-import com.github.jizumer.rps.playground.rounds.domain.Round;
-import com.github.jizumer.rps.playground.rounds.domain.RoundCriteria;
-import com.github.jizumer.rps.playground.rounds.domain.RoundId;
-import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
+import com.github.jizumer.rps.playground.rounds.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -22,6 +19,8 @@ public final class InMemoryRoundRepository implements RoundRepository {
 
     @Override
     public void save(Round round) {
+        //This could be a great point to publish an event that could be handled by other bounded context aggregates
+        //or even by other systems
         rounds.put(round.getId().getValue(), round);
     }
 
@@ -39,6 +38,17 @@ public final class InMemoryRoundRepository implements RoundRepository {
                         .equals(criteria
                                 .getFirstPlayerId()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long countByResult(RoundResult result) {
+        return rounds
+                .values()
+                .stream()
+                .filter(round ->
+                        round.getResult()
+                                .equals(result))
+                .count();
     }
 
     @Override

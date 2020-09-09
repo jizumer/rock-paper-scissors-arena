@@ -2,7 +2,7 @@ package com.github.jizumer.rps.playground.rounds.domain;
 
 import java.util.Objects;
 
-public final class Round {
+public class Round {
     private final RoundId id;
     private final Player player1;
     private final Player player2;
