@@ -12,8 +12,11 @@ run:
 clean:
 	@./gradlew clean
 
-boot:
+container-boot:
 	@docker-compose up -d
 
 container-test:
 	@docker exec rock.paper.scissors ./gradlew test --warning-mode all
+
+container-stop:
+	@docker-compose down
