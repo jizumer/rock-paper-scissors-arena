@@ -1,12 +1,15 @@
 package com.github.jizumer.rps.playground.rounds.infrastructure;
 
 import com.github.jizumer.rps.playground.rounds.domain.Round;
+import com.github.jizumer.rps.playground.rounds.domain.RoundCriteria;
 import com.github.jizumer.rps.playground.rounds.domain.RoundId;
 import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,6 +25,23 @@ public final class InMemoryRoundRepository implements RoundRepository {
         rounds.put(round.getId().getValue(), round);
     }
 
+    @Override
+    public List<Round> searchByCriteria(RoundCriteria criteria) {
+        //In more complex situations, it would be necessary to analyze the criteria to identify which fields
+        //are informed and use them to query data. This time, we only have one single criteria field.
+
+        //Filtering rounds by its first player Id
+        return rounds.values()
+                .stream()
+                .filter(round -> round.
+                        getPlayer1()
+                        .id()
+                        .equals(criteria
+                                .getFirstPlayerId()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Round> search(RoundId id) {
         return Optional.ofNullable(rounds.get(id.getValue()));
     }

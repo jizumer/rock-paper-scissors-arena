@@ -6,7 +6,15 @@ public abstract class StringValueObject {
     private final String value;
 
     public StringValueObject(String value) {
+        validate(value);
         this.value = value;
+    }
+
+    private void validate(String value) throws IllegalArgumentException {
+        //In this particular case, we wont accept empty strings
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("No empty or null values are accepted.");
+        }
     }
 
     public String value() {
