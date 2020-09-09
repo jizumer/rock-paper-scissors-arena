@@ -22,6 +22,7 @@ public final class RoundSearchByFirstPlayerIdController {
     @GetMapping(value = "/rounds/player/{idPlayer}")
     public ResponseEntity<List<Round>> searchByFirstPlayerId(@PathVariable String idPlayer) {
 
+        //Mapping to DTOs is required here, to decouple from communication layer
         List<Round> foundRounds = roundSearcher.searchByCriteria(new RoundSearcherRequest(idPlayer));
 
         return new ResponseEntity<>(foundRounds, HttpStatus.OK);
