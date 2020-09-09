@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public final class RoundSearchByFirstPlaterIdController {
+public final class RoundSearchByFirstPlayerIdController {
     private final RoundSearcher roundSearcher;
 
-    public RoundSearchByFirstPlaterIdController(RoundSearcher roundSearcher) {
+    public RoundSearchByFirstPlayerIdController(RoundSearcher roundSearcher) {
         this.roundSearcher = roundSearcher;
     }
 

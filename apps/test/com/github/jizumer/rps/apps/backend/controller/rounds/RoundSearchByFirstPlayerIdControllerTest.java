@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-final class RoundSearchByFirstPlaterIdControllerTest extends ApiInfrastructureTest {
+final class RoundSearchByFirstPlayerIdControllerTest extends ApiInfrastructureTest {
 
     @Test
     void shouldSearchRoundsByFirstPlayerId() throws Exception {
