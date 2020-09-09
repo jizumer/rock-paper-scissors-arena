@@ -9,7 +9,7 @@ import java.util.HashMap;
 @ComponentScan(value = {"com.github.jizumer.rps.core",
         "com.github.jizumer.rps.playground",
         "com.github.jizumer.rps.dashboard",
-        "com.github.jizumer.rps.apps.backend"}
+        "com.github.jizumer.rps.apps.frontend"}
 )
 public class RpsFrontendApplication {
     public static HashMap<String, Class<?>> commands() {

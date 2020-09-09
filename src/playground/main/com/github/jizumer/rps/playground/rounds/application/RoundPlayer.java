@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 
-//This annotation should be avoided outside the infrastructure layer. Alternatives are extracting context configuration
-//to an xml, or making this class abstract and inheriting it in the infrastructure layer. In this case, we have let it
-//here for simplicity, but it is open to discussion.
+//This annotation should be avoided outside the infrastructure layer. The best alternative might be creating our own
+//annotation, and creating a spring filter in the application bootstrap, to include Spring's original @Service
+//annotation everytime our annotation appears. This way, we are decoupling our project from Spring infrastructure
 @Service
 public class RoundPlayer {
     //This is the application service related to the creation of rounds. This is also the entry point to the

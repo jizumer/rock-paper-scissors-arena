@@ -20,6 +20,10 @@ public class Boot {
         SpringApplication.run(Boot.class, args);
     }
 
+
+    //Next step would be create a command processing system to deploy only the applications indicated in arguments.
+    //Those applications are already created, but are not currently being instantiated. Instead, what we do is
+    //instantiate the entire context for all applications.
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
