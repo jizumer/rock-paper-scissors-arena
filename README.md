@@ -101,8 +101,8 @@ These are the endpoints that will be reachable:
 
 _NOTE: Id's are expected to be UUIDs_
 
-Plays a new round between current player (indicated by POST). Player 1 is considered the real user, and will make
-a random move (rock, paper or scissors). Player 2 will always make the same move: rock.
+Plays a new round between current player (indicated by POST) and a second automatic player. Player 1 is considered the 
+real user, and will make a random move (rock, paper or scissors). Player 2 will always make the same move: rock.
 ```
 [PUT]
 /rounds/play/{idRound}
