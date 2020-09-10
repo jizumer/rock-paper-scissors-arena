@@ -1,23 +1,31 @@
 package com.github.jizumer.rps.apps;
 
+import com.github.jizumer.rps.apps.backend.RpsBackendApplication;
+import com.github.jizumer.rps.apps.frontend.RpsFrontendApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
+import java.util.Map;
 
-@SpringBootApplication
-@ComponentScan(value = {
-        "com.github.jizumer.rps.playground",
-        "com.github.jizumer.rps.dashboard",
-        "com.github.jizumer.rps.apps"}
-)
 public class Boot {
     public static void main(String[] args) {
-        SpringApplication.run(Boot.class, args);
+        if (args.length != 1) {
+            throw new RuntimeException("Expected one argument: the app to run.");
+        }
+        Map<String, Class<?>> supportedApplications = Map.of("backend", RpsBackendApplication.class,
+                "frontend", RpsFrontendApplication.class);
+        Class<?> applicationToRun =
+                supportedApplications.get(args[0]);
+        if (applicationToRun == null) {
+            throw new RuntimeException(String.format("Received argument %s does not correspond to a supported class %s.",
+                    args[0],
+                    supportedApplications.keySet()));
+        }
+
+        SpringApplication.run(applicationToRun);
     }
 
 
