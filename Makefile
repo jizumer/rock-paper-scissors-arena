@@ -7,7 +7,7 @@ test:
 	@./gradlew test --warning-mode all
 
 run:
-	@./gradlew run
+	@./gradlew run --args=backend
 
 clean:
 	@./gradlew clean

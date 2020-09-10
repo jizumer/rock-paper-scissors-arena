@@ -92,6 +92,24 @@ To run the app locally:
 ```
 make run
 ``` 
+NOTE: As we mentioned before, we have developed a selective application startup depending on the arguments received
+from command line. The only really implemented app is backend but there is another "frontend" option available as well.
+ 
+If you run the command:
+
+```
+gradlew run --args=backend
+```
+You will boot the backend app. And executing:
+
+```
+gradlew run --args=frontend
+```
+You will boot the frontend app. For now, only one controller localhost:8080/frontend-health` is available in the frontend
+which is a health check.
+
+**For now, `make run` is mapped with `gradlew run --args=backend`, so it will boot the backend app.**
+
 And that's it. Now once the application is running, by default, it will be accessible in `http://localhost:8080`. 
 
 
