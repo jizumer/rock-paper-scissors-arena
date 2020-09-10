@@ -6,6 +6,8 @@ public class Round {
     private final RoundId id;
     private final Player player1;
     private final Player player2;
+    private Move player1Move;
+    private Move player2Move;
     private final RoundResult result;
 
 
@@ -18,10 +20,10 @@ public class Round {
 
 
     private RoundResult play() {
-        Move player1Move = player1.play();
-        Move player2Move = player2.play();
+        player1Move = player1.play();
+        player2Move = player2.play();
         RoundResult result = Referee.decide(player1Move, player2Move);
-        //Basic loging to standard output
+        //Basic logging to standard output
         System.out.printf("%s %s => %s%n",
                 player1Move,
                 player2Move,
@@ -39,6 +41,14 @@ public class Round {
 
     public Player getPlayer2() {
         return player2;
+    }
+
+    public Move getPlayer1Move() {
+        return player1Move;
+    }
+
+    public Move getPlayer2Move() {
+        return player2Move;
     }
 
     public RoundResult getResult() {
