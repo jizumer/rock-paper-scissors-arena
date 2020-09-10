@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan(value = {"com.github.jizumer.rps.core",
+@ComponentScan(value = {
         "com.github.jizumer.rps.playground",
         "com.github.jizumer.rps.dashboard",
         "com.github.jizumer.rps.apps"}
