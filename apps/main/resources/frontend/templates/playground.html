@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org ">
+<html layout:decorate="~{/layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Stats</title>
+    <title>Playground</title>
+    </header>
 </head>
-<body>
-<p th:text="'Hello, ' + ${hello_world} + '!'"/>
-</body>
-</html>
+
+
+<div layout:fragment="content">
+    <header class="masthead" style="background-image: url('img/rps.png')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Rock, paper, scissors!</h1>
+                        <span class="subheader">Current player</span>
+                        <div class="subheader" id="current-player"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+
+                    <h2 class="post-title" id="round-counter">
+                        Rounds played so far
+                    </h2>
+
+                    <div id="rounds"></div>
+                    @if(lastUpdate)
+                    <p class="post-meta">Last update
+                        {{lastUpdate}}
+                    </p>
+                    @endif
+                </div>
+                <hr>
+                <button class="btn btn-primary" onclick="playNewRound()">Play</button>
+                <button class="btn btn-primary" onclick="restartGame()">Restart game</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>

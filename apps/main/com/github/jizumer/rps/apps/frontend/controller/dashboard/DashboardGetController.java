@@ -1,16 +1,15 @@
-package com.github.jizumer.rps.apps.frontend.controller.stats;
+package com.github.jizumer.rps.apps.frontend.controller.dashboard;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class StatsGetController {
+public class DashboardGetController {
 
     @GetMapping(value = "/dashboard")
     public String stats(Model model) {
 
-        model.addAttribute("hello_world", "Juan");
         return "dashboard";
     }
 }
