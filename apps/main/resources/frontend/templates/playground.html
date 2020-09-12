@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}"
-      xmlns:layout="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Playground</title>
@@ -8,15 +8,16 @@
 
 
 <div layout:fragment="content">
-    <header class="masthead" style="background-image: url('img/rps.png')">
+
+    <header class="masthead" style="background-image: url('/img/rps.png')">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="site-heading">
-                        <h1>Rock, paper, scissors!</h1>
-                        <span class="subheader">Current player</span>
-                        <div class="subheader" id="current-player"></div>
+                        <h2>Rock, paper, scissors!</h2>
+                        <span class="subheader">Current player:</span>
+                        <div class="subheader" th:text="${idPlayer}"></div>
                     </div>
                 </div>
             </div>
@@ -27,23 +28,27 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="post-preview">
-
-                    <h2 class="post-title" id="round-counter">
-                        Rounds played so far
-                    </h2>
-
-                    <div id="rounds"></div>
-                    @if(lastUpdate)
-                    <p class="post-meta">Last update
-                        {{lastUpdate}}
-                    </p>
-                    @endif
-                </div>
-                <hr>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Player 1</th>
+                        <th scope="col">Player 2</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${rounds.empty}">
+                        <td colspan="4">No rounds played yet.</td>
+                    </tr>
+                    <tr th:each="round : ${rounds}">
+                        <td scope="row" th:text="${round.getPlayer1Move()}"></td>
+                        <td scope="row" th:text="${round.getPlayer2Move()}"></td>
+                        <td scope="row" th:text="${round.getResult()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <button class="btn btn-primary" onclick="playNewRound()">Play</button>
                 <button class="btn btn-primary" onclick="restartGame()">Restart game</button>
             </div>
         </div>
     </div>
-</div>

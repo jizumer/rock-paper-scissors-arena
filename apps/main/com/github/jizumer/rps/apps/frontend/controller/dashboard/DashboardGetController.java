@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Date;
+
 @Controller
 public class DashboardGetController {
     //We are taking advantage of the mono-repo approach so we can inject here evert application service from different
@@ -19,6 +21,7 @@ public class DashboardGetController {
     public String stats(Model model) {
 
         model.addAttribute("stats", statsCollector.collectStats());
+        model.addAttribute("lastUpdated", new Date());
         return "dashboard";
     }
 }
