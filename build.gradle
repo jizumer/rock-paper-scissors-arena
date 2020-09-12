@@ -13,6 +13,10 @@ allprojects {
     }
 
     dependencies {
+
+        implementation 'org.freemarker:freemarker-gae:2.3.30'
+        implementation 'org.springframework:spring-context-support:5.2.8.RELEASE'
+
         implementation 'org.springframework.boot:spring-boot-starter:2.3.3.RELEASE'
         testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
