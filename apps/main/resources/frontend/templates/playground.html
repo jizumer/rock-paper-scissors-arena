@@ -36,7 +36,8 @@
                         <button class="btn btn-secondary" type="submit">Restart</button>
                     </div>
                 </form>
-                <table class="table">
+                <p class="h4" th:text="'Rounds played so far: ' + ${rounds.size()}"></p>
+                <table class="table table-sm table-striped table-dark table-bordered table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Player 1</th>
