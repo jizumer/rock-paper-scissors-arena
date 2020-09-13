@@ -136,7 +136,7 @@ _NOTE: Id's are expected to be UUIDs_
 
 Plays a new round between current player (indicated by POST) and a second automatic player. Player 1 is considered the 
 real user, and will make a random move (rock, paper or scissors). Player 2 will always make the same move: rock.
-See the complete description of the assumption made: [Assumptions](#assumptionsassumptions)
+See the complete description of the assumption made: [Assumptions](#Assumptions)
 
 #### Play a new round
 
