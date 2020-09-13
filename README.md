@@ -5,6 +5,24 @@ This repository is an exercise as a proposal for a simple backend architecture, 
 technical design and good practices.
 
 Consists on an implementation of Rock, Paper, Scissors game.
+https://en.wikipedia.org/wiki/Rock-paper-scissors
+
+## Assumptions
+The statement described the existence of two kind of players:
+
+- Random player: every move is random (rock, paper or scissors)
+- Always rock player: always plays rock.
+
+In this version, we have assumed that current user identifies with player 1, which is a random player, and player 2 is
+an always rock player.
+
+For this reason, we don't handle the concept of "user", but we only consider "players", no matter if it's automatic or not.
+
+A future version could be interpreted like this:
+
+- User inputs the next move, and player 2 type (random, always-rock, or new ones) will be chosen in runtime.
+- Another approach would consist of differentiating the concepts of "user" and "player", so we would always play
+automatic rounds for players of a type that will be chosen in runtime. 
 
 # Getting Started
 

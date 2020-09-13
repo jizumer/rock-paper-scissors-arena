@@ -8,6 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: rock.paper.scissors:develop
+    volumes:
+      - .:/app
     restart: always
     ports:
       - "8080:8080"
