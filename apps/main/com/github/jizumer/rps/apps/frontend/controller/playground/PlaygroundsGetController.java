@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.UUID;
 
@@ -22,16 +23,18 @@ public class PlaygroundsGetController {
 
         //Mapping to DTOs is required here, to decouple from communication layer
 
-        if (idPlayer != null && !idPlayer.isBlank()) {
-            model.addAttribute("rounds",
-                    roundSearcher.searchByCriteria(new RoundSearcherRequest(idPlayer)));
-        } else {
-            idPlayer = UUID.randomUUID().toString();
-        }
+        model.addAttribute("rounds",
+                roundSearcher.searchByCriteria(new RoundSearcherRequest(idPlayer)));
         model.addAttribute("idPlayer", idPlayer);
 
         //Error control is required, returning the right HTTP status codes
         return "playground";
     }
+
+    @GetMapping(value = "/playground")
+    public RedirectView firstAccessWithoutIdPlayer() {
+        return new RedirectView("/playground/" + UUID.randomUUID().toString());
+    }
+
 
 }
