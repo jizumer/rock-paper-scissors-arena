@@ -1,6 +1,10 @@
 package com.github.jizumer.rps.playground.rounds.infrastructure;
 
-import com.github.jizumer.rps.playground.rounds.domain.*;
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
+import com.github.jizumer.rps.playground.rounds.domain.Round;
+import com.github.jizumer.rps.playground.rounds.domain.RoundCriteria;
+import com.github.jizumer.rps.playground.rounds.domain.RoundId;
+import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

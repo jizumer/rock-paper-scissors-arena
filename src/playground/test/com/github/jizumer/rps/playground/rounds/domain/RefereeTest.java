@@ -1,5 +1,6 @@
 package com.github.jizumer.rps.playground.rounds.domain;
 
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 

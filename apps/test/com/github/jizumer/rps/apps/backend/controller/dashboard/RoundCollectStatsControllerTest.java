@@ -1,4 +1,4 @@
-package com.github.jizumer.rps.apps.backend.controller.rounds;
+package com.github.jizumer.rps.apps.backend.controller.dashboard;
 
 import com.github.jizumer.rps.apps.ApiInfrastructureTest;
 import org.junit.jupiter.api.Test;

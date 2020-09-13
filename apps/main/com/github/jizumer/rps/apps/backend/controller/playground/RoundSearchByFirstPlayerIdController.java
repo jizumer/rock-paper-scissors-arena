@@ -1,4 +1,4 @@
-package com.github.jizumer.rps.apps.backend.controller.rounds;
+package com.github.jizumer.rps.apps.backend.controller.playground;
 
 import com.github.jizumer.rps.playground.rounds.application.RoundSearcher;
 import com.github.jizumer.rps.playground.rounds.application.RoundSearcherRequest;

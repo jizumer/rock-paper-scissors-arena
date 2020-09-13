@@ -1,9 +1,10 @@
-package com.github.jizumer.rps.playground.stats.application;
+package com.github.jizumer.rps.dashboard.stats.application;
 
-import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
-import com.github.jizumer.rps.playground.rounds.domain.RoundResult;
-import com.github.jizumer.rps.playground.stats.domain.Stats;
-import com.github.jizumer.rps.playground.stats.domain.StatsGenerator;
+
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
+import com.github.jizumer.rps.dashboard.stats.domain.Stats;
+import com.github.jizumer.rps.dashboard.stats.domain.StatsGenerator;
+import com.github.jizumer.rps.dashboard.stats.domain.StatsRepository;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,22 +20,22 @@ import static org.mockito.Mockito.*;
 class StatsCollectorTest {
 
     @Mock
-    RoundRepository roundRepository;
+    StatsRepository statsRepository;
 
     @InjectMocks
     StatsCollector statsCollector;
 
     @BeforeEach
     void setUp() {
-        statsCollector = new StatsCollector(roundRepository);
+        statsCollector = new StatsCollector(statsRepository);
     }
 
     @Test
     void shouldCollectStats() {
         Stats statsMock = mock(Stats.class);
-        when(roundRepository.countByResult(RoundResult.P1_WINS)).thenReturn(3565L);
-        when(roundRepository.countByResult(RoundResult.P2_WINS)).thenReturn(1644L);
-        when(roundRepository.countByResult(RoundResult.DRAW)).thenReturn(25L);
+        when(statsRepository.countRoundsByResult(RoundResult.P1_WINS)).thenReturn(3565L);
+        when(statsRepository.countRoundsByResult(RoundResult.P2_WINS)).thenReturn(1644L);
+        when(statsRepository.countRoundsByResult(RoundResult.DRAW)).thenReturn(25L);
 
         Stats expectedStats = StatsGenerator.buildFromValues(3565L,
                 1644L,
@@ -42,6 +43,6 @@ class StatsCollectorTest {
 
         Stats calculatedStats = statsCollector.collectStats();
         Assert.assertEquals(expectedStats, calculatedStats);
-        verify(roundRepository, Mockito.times(3)).countByResult(any(RoundResult.class));
+        verify(statsRepository, Mockito.times(3)).countRoundsByResult(any(RoundResult.class));
     }
 }

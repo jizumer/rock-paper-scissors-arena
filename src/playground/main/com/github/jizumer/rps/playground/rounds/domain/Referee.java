@@ -1,5 +1,7 @@
 package com.github.jizumer.rps.playground.rounds.domain;
 
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
+
 //Here is where real RPS algorithm takes place. We push the logic towards entities.
 //This solution is pretty imperative, but legible and efficient
 public class Referee {

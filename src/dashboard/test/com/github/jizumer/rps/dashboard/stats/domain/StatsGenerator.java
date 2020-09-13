@@ -1,4 +1,4 @@
-package com.github.jizumer.rps.playground.stats.domain;
+package com.github.jizumer.rps.dashboard.stats.domain;
 
 public class StatsGenerator {
 

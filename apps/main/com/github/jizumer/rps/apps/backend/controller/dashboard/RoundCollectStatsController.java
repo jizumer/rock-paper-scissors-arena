@@ -1,7 +1,7 @@
-package com.github.jizumer.rps.apps.backend.controller.rounds;
+package com.github.jizumer.rps.apps.backend.controller.dashboard;
 
-import com.github.jizumer.rps.playground.stats.application.StatsCollector;
-import com.github.jizumer.rps.playground.stats.domain.Stats;
+import com.github.jizumer.rps.dashboard.stats.application.StatsCollector;
+import com.github.jizumer.rps.dashboard.stats.domain.Stats;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +26,6 @@ public final class RoundCollectStatsController {
         return new ResponseEntity<>(statsCollector.collectStats(), HttpStatus.OK);
         //Error control is required, returning the right HTTP status codes
     }
-
 
 }
 

@@ -1,4 +1,4 @@
-package com.github.jizumer.rps.apps.backend.controller.rounds;
+package com.github.jizumer.rps.apps.backend.controller.playground;
 
 public final class RoundPlayControllerRequest {
 

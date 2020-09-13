@@ -1,5 +1,6 @@
 package com.github.jizumer.rps.playground.rounds.infrastructure;
 
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
 import com.github.jizumer.rps.core.infrastructure.InfrastructureTestCase;
 import com.github.jizumer.rps.playground.rounds.domain.*;
 import org.junit.jupiter.api.BeforeEach;

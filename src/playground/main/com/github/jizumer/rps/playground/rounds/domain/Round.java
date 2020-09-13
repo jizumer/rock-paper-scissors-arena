@@ -2,6 +2,7 @@ package com.github.jizumer.rps.playground.rounds.domain;
 
 import com.github.jizumer.rps.core.domain.DomainEventPublisher;
 import com.github.jizumer.rps.core.domain.rounds.RoundPlayed;
+import com.github.jizumer.rps.core.domain.rounds.RoundResult;
 
 import java.util.Objects;
 
