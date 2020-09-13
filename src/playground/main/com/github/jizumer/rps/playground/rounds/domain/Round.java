@@ -1,8 +1,11 @@
 package com.github.jizumer.rps.playground.rounds.domain;
 
+import com.github.jizumer.rps.core.domain.DomainEventPublisher;
+import com.github.jizumer.rps.core.domain.rounds.RoundPlayed;
+
 import java.util.Objects;
 
-public class Round {
+public class Round extends DomainEventPublisher {
     private final RoundId id;
     private final Player player1;
     private final Player player2;
@@ -16,6 +19,12 @@ public class Round {
         this.player1 = player1;
         this.player2 = player2;
         this.result = play();
+        addEvent(new RoundPlayed(id.getValue(),
+                player1.getId(),
+                player2.getId(),
+                player1Move.name(),
+                player2Move.name(),
+                result.name()));
     }
 
 

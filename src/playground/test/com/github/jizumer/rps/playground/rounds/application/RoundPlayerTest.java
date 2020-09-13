@@ -1,5 +1,6 @@
 package com.github.jizumer.rps.playground.rounds.application;
 
+import com.github.jizumer.rps.core.domain.EventBus;
 import com.github.jizumer.rps.core.domain.UuidGenerator;
 import com.github.jizumer.rps.playground.rounds.domain.Round;
 import com.github.jizumer.rps.playground.rounds.domain.RoundRepository;
@@ -20,12 +21,15 @@ public class RoundPlayerTest {
     @Mock
     RoundRepository roundRepository;
 
+    @Mock
+    EventBus eventBus;
+
     @InjectMocks
     RoundPlayer roundPlayer;
 
     @BeforeEach
     protected void setUp() {
-        roundPlayer = new RoundPlayer(roundRepository);
+        roundPlayer = new RoundPlayer(eventBus, roundRepository);
     }
 
     @Test
