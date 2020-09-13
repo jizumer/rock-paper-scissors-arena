@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,29 +40,26 @@ class InMemoryStatsRepositoryTest {
         RoundPlayed p2WinMock = generateRoundPlayedMock(RoundResult.P2_WINS);
         RoundPlayed drawMock = generateRoundPlayedMock(RoundResult.DRAW);
 
-        for (int i = 0; i < 5; i++) {
-            repository.includeRoundInStats(p1WinMock);
-        }
-        for (int i = 0; i < 10; i++) {
-            repository.includeRoundInStats(p2WinMock);
-        }
-        for (int i = 0; i < 15; i++) {
-            repository.includeRoundInStats(drawMock);
-        }
 
-        assertEquals(5L, repository.countRoundsByResult(RoundResult.P1_WINS));
-        assertEquals(10L, repository.countRoundsByResult(RoundResult.P2_WINS));
-        assertEquals(15L, repository.countRoundsByResult(RoundResult.DRAW));
+        repository.includeRoundInStats(p1WinMock);
+        repository.includeRoundInStats(p2WinMock);
+        repository.includeRoundInStats(drawMock);
+
+        assertEquals(1L, repository.countRoundsByResult(RoundResult.P1_WINS));
+        assertEquals(1L, repository.countRoundsByResult(RoundResult.P2_WINS));
+        assertEquals(1L, repository.countRoundsByResult(RoundResult.DRAW));
 
     }
 
     @Test
     void shouldNotIncludeTwiceTheSameRoundInStats() {
         String fakeIdRound = UUID.randomUUID().toString();
-        repository.includeRoundInStats(generateRoundPlayedMock(fakeIdRound, RoundResult.P1_WINS));
+        RoundPlayed roundPlayedMock = generateRoundPlayedMock(fakeIdRound, RoundResult.P1_WINS);
+        repository.includeRoundInStats(roundPlayedMock);
         assertEquals(1L, repository.countRoundsByResult(RoundResult.P1_WINS));
-        repository.includeRoundInStats(generateRoundPlayedMock(fakeIdRound, RoundResult.P1_WINS));
+        repository.includeRoundInStats(roundPlayedMock);
         assertEquals(1L, repository.countRoundsByResult(RoundResult.P1_WINS));
+        verify(roundPlayedMock, Mockito.times(3)).getRoundId();
     }
 
     private RoundPlayed generateRoundPlayedMock(RoundResult result) {
