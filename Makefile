@@ -23,6 +23,7 @@ container-stop:
 	@docker rmi --force rock.paper.scissors:develop
 
 container-test:
+	@./gradlew build --warning-mode all
 	@docker-compose -f docker-compose-test.yml up -d --remove-orphans  --build
 	@docker exec -w /app rock.paper.scissors ./gradlew test --warning-mode all
 	@docker-compose down
