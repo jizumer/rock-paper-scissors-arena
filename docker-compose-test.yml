@@ -6,7 +6,7 @@ services:
     container_name: rock.paper.scissors
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-test
     image: rock.paper.scissors:develop
     volumes:
       - .:/app
