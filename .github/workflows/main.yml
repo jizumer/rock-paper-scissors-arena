@@ -22,6 +22,7 @@ jobs:
 
       - name: Bootstrap container
         run: |
+          make build
           make container-boot
           make container-stop
 
