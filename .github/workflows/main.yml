@@ -21,7 +21,9 @@ jobs:
         run: make test
 
       - name: Bootstrap container
-        run: docker-compose up -d
+        run: |
+          make container-boot
+          make container-stop
 
       - name: Container tests
         run: make container-test
