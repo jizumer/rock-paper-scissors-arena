@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dashboard</title>
+</head>
+
+
+<div layout:fragment="content">
+
+    <header class="masthead" style="background-image: url('img/rps.png')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h2>Rock, paper, scissors!</h2>
+                        <span class="subheader">Statistics dashboard</span>
+                        <div class="subheader" th:text="'Last updated: ' + ${lastUpdated}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <table class="table table-sm table-striped table-dark table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Player 1 wins</th>
+                        <th scope="col">Player 2 wins</th>
+                        <th scope="col">Draws</th>
+                        <th scope="col">Rounds</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td scope="row" th:text="${stats.getPlayer1Wins()}"></td>
+                        <td th:text="${stats.getPlayer2Wins()}"></td>
+                        <td th:text="${stats.getDraws()}"></td>
+                        <td th:text="${stats.getTotalRounds()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

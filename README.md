@@ -5,13 +5,34 @@ This repository is an exercise as a proposal for a simple backend architecture, 
 technical design and good practices.
 
 Consists on an implementation of Rock, Paper, Scissors game.
+https://en.wikipedia.org/wiki/Rock-paper-scissors
+
+## [Assumptions](#Assumptions)
+The statement described the existence of two kind of players:
+
+- Random player: every move is random (rock, paper or scissors)
+- Always rock player: always plays rock.
+
+In this version, we have assumed that current user identifies with player 1, which is a random player, and player 2 is
+an always rock player.
+
+For this reason, we don't handle the concept of "user", but we only consider "players", no matter if it's automatic or not.
+
+A future version could be interpreted like this:
+
+- User inputs the next move, and player 2 type (random, always-rock, or new ones) will be chosen in runtime.
+- Another approach would consist of differentiating the concepts of "user" and "player", so we would always play
+automatic rounds for players of a type that will be chosen in runtime. 
 
 # Getting Started
 
 ## What's included
 
 * Backend source code in a mono-repo approach. It's Java based, structured with gradle. This configuration is a 
-proposal for a single repository, that would allow to deploy different applications based on the same bounded contexts.
+proposal for a single repository, that would allow deploying different applications based on the same bounded contexts.
+* Frontend based on Spring and Thymeleaf. A non single page application technology has been chosen in order to illustrate
+the benefits of using the same codebase to deploy different kinds of applications. It is possible to deploy a REST Api or
+a web application depending of a command argument, as stated below.  
 * The source code is distributed in contexts, modules and aggregates. The logic has been pushed towards domain entities
 as far as the proposed statement allows it. There are typical Hex Architecture layers, and application and domain services
 have been identified.
@@ -24,20 +45,19 @@ objects from one domain to the other, both have been created in order to illustr
  * There are unit and acceptance tests included. e2e and automated performance testing could be a good next enhancement.
  * Github actions basic workflow in order to allow extra testing warranties and as a starting point for CI/CD or
   performance automation discussion.
+ * Docker set up to allow running the development version of the app in a local Docker host.
  
  ## What's not included (yet)
  As mentioned before, there are some elements not included in this exercise for scope reasons. The main non included
  features are:
  
- * Frontend is not included in the codebase, but its packages are included, deployment procedure is proposed, and even
- a health-check endpoint can be accessed.
  * Domain segregation: Even when all domains have been created to propose this discussion, the promotion of aggregates 
  from "playground" context to "dashboard" context is not implemented. This is something that would have to be addressed 
  in a real life situation as the codebase grows.
  * Communication between different bounded contexts could be addressed with an asynchronous event bus system. It could 
  be in the form of an in memory event bus, or an external system.
- * Validation errors will raise http 500 status codes. An explicit error management has not been implemented, in order to 
- return correct expected HTTP status codes.
+ * In the rest api app (backend) validation errors will raise http 500 status codes. An explicit error management has 
+ not been implemented, in order to return correct expected HTTP status codes.
 
  
  ## Other considerations
@@ -51,24 +71,26 @@ objects from one domain to the other, both have been created in order to illustr
  * Id's for entities are not generated in the backend, but expected (and validated) to be generated outside it. It 
  improves the integrity of our domain and decouples our system from external systems such as databases. Related with
  this, the statement indicated that multiple users in multiple browsers should be able to play their own rounds 
- independently. For this, the backend expects receiving player ids from the frontend. In a real life situation, this id
- would come from an Auth server (eg: as a JWT), but in the scope of this exercise, it is allowed every randomly 
- generated UUID. 
+ independently. For this, the backend expects receiving player ids from the frontend. In frontend app, this id's are
+ generated as simple UUID's. In a real life situation, this id would come from an Auth server (eg: as a JWT), but in 
+ the scope of this exercise, it is allowed every randomly generated UUID. 
  * Criteria pattern has been applied in a basic way, not even being necessary for such a simple example, but in terms
  of facing future codebase growth.
  * External configuration has not been addressed because it has not been considered within scope, and because the statement
  problem accepts very little configuration at the moment.
  * As mentioned before, this project structure is a proposal for deploying different apps leveraging on the same
- domain classes. For now, only the backend is available, so there is a main Boot class that scans the whole classpath
- to instantiate beans. When other apps are included, it is intended to evolve to a more complex bootstrap system that
- boot app-specific context depending on the received commanline arguments or other configurations.
+ domain classes. For now, there are two different deployment types available: backend and frontend. There is a main Boot
+ class that starts the right Spring Boot app depending on the received command line argument (for now `backend` or 
+ `frontend` are allowed).
+ * These applications `RpsBackendApplications` and `RpsFrontendApplication` scans the right packages along classpath to 
+ instantiate beans.
  
 ### Some helpers 
 
 Along with the source code, there are some helpers included:
 
 * Makefile including common commands with gradle and Docker.
-* docker-compose.yml and Dockerfile intended to run tests within the container.
+* docker-compose and Dockerfile files intended to run tests within the container.
 
 ## Requisites
 
@@ -89,29 +111,22 @@ To run all tests:
 make test
 ``` 
 To run the app locally:
-```
-make run
-``` 
 NOTE: As we mentioned before, we have developed a selective application startup depending on the arguments received
-from command line. The only really implemented app is backend but there is another "frontend" option available as well.
- 
-If you run the command:
+from command line. For now, `backend` (a REST API) and `frontend` (a web app) are the available deployment configs, but
+it is an extensible mechanism (eg: to create a CLI).
 
+To deploy the web app:
 ```
-gradlew run --args=backend
+make run-frontend
+``` 
+
+And that's it. Now once the application is running, by default, it will be accessible in 
+`http://localhost:8080/playground`.
+
+To deploy the rest api:
 ```
-You will boot the backend app. And executing:
-
-```
-gradlew run --args=frontend
-```
-You will boot the frontend app. For now, only one controller localhost:8080/frontend-health` is available in the frontend
-which is a health check.
-
-**For now, `make run` is mapped with `gradlew run --args=backend`, so it will boot the backend app.**
-
-And that's it. Now once the application is running, by default, it will be accessible in `http://localhost:8080`. 
-
+make run-backend
+``` 
 
 ### API endpoints
 
@@ -121,6 +136,10 @@ _NOTE: Id's are expected to be UUIDs_
 
 Plays a new round between current player (indicated by POST) and a second automatic player. Player 1 is considered the 
 real user, and will make a random move (rock, paper or scissors). Player 2 will always make the same move: rock.
+See the complete description of the assumption made: [Assumptions](#assumptionsassumptions)
+
+#### Play a new round
+
 ```
 [PUT]
 /rounds/play/{idRound}
@@ -133,13 +152,14 @@ more information when a new entity is stored in the database.
 }
 ```
 
-Get the rounds played by player indicated by `idPlayer` currently stored in database.
+#### Get the rounds played by player indicated by `idPlayer` currently stored in database.
 
 ```
 [GET]
 /rounds/player/{idPlayer}
 ```
-Collect statistics about totals:
+
+#### Collect statistics about totals:
 
 * Total number of rounds.
 * Total wins for 1st players.
@@ -147,16 +167,11 @@ Collect statistics about totals:
 * Total draws.
 
 ```
+[GET]
 /stats
 ```
-There are also health checks included, for orchestration or load balancing.
 
-```
-[GET]
-/health
-/frontend-health
-```
-This data is intendet to be processed by the second domain classes (dashboard), and received through an event bus, or
+This data is intended to be processed by the second domain classes (dashboard), and received through an event bus, or
 any other kind of asynchronous event sourcing system.
  
 The resulting data will look like this:
@@ -169,33 +184,50 @@ The resulting data will look like this:
     "totalRounds": 0
 }
 ```
+#### Health checks
+There are also health checks included (both in frontend and backend apps), for orchestration or load balancing.
 
+```
+[GET]
+/health
+/frontend-health
+```
 
-## Other commands
+## Makefile commands
 
-To clean the workspace:
+### Build the workspace
+```
+make build
+``` 
+
+### Clean the workspace:
 ```
 make clean
 ``` 
-To boot up a docker-compose:
+### Run all tests
+```
+make test
+``` 
+### Run locally
+```
+make run-[frontend|backend]
+``` 
+
+### To boot up frontend app in a Docker compose environment
 ```
 make container-boot 
 ``` 
+
 _NOTE: You may ask "why a docker compose file to deploy a single container?" Because it is intended as a usefull resource
 to deploy a development environment as well. It could include, in the future, the frontend (if necessary to serve 
 static resources), databases, or queues/topic brokers or every system used to orchestrate workloads or collect metrics._
 
-To run tests within the container (see docker-compose.yml, since workspace app volume is mounted on the container)
-```
-make container-test
-``` 
-To stop container
+### Stop Docker compose environment
 ```
 make container-stop
 ``` 
 
-Additionally, the image built will remain in the local docker installation. In case you want to delete it:
-
+## To run tests within the container (see docker-compose-test.yml, since workspace app volume is mounted on the container)
 ```
- docker rmi rock-paper-scissors-arena_rock.paper.scissors 
-```
+make container-test
+``` 

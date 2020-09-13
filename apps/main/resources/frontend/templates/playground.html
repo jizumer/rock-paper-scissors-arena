@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Playground</title>
+</head>
+
+
+<div layout:fragment="content">
+
+    <header class="masthead" style="background-image: url('/img/rps.png')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h2>Rock, paper, scissors!</h2>
+                        <span class="subheader">Current player:</span>
+                        <div class="subheader" th:text="${idPlayer}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+                <div aria-label="Playground controls" class="btn-group" role="group">
+                    <form action="/playground" method="post">
+                        <input name="idPlayer" th:value="${idPlayer}" type="hidden">
+                        <input id="idRoundInput" name="idRound" type="hidden">
+                        <button class="btn btn-secondary btn-sm" type="submit">Play Round</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href = '/playground'" type="button">
+                            Restart
+                        </button>
+                    </form>
+                </div>
+                <p class="h4" th:text="'Rounds played so far: ' + ${rounds.size()}"></p>
+                <table class="table table-sm table-striped table-dark table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Player 1</th>
+                        <th scope="col">Player 2</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${rounds.empty}">
+                        <td colspan="4">No rounds played yet.</td>
+                    </tr>
+                    <tr th:each="round : ${rounds}">
+                        <td scope="row" th:text="${round.getPlayer1Move()}"></td>
+                        <td scope="row" th:text="${round.getPlayer2Move()}"></td>
+                        <td scope="row" th:text="${round.getResult()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="/js/uuid-generator.js"></script>
+    <script>
+        injectNewUUIDToElement('idRoundInput')
+
+
+
+    </script>

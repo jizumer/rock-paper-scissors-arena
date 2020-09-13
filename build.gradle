@@ -4,7 +4,7 @@ allprojects {
     apply plugin: 'org.springframework.boot'
 
     group = 'com.github.jizumer.rps'
-    version = '0.0.1-SNAPSHOT'
+    version = '0.0.2'
     sourceCompatibility = '1.11'
     targetCompatibility = '1.11'
 
@@ -13,7 +13,12 @@ allprojects {
     }
 
     dependencies {
+
         implementation 'org.springframework.boot:spring-boot-starter:2.3.3.RELEASE'
+        implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+        implementation 'org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE'
+        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
+        
         testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.3.RELEASE') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
