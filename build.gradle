@@ -4,7 +4,7 @@ allprojects {
     apply plugin: 'org.springframework.boot'
 
     group = 'com.github.jizumer.rps'
-    version = '0.0.3-SNAPSHOT'
+    version = '0.0.3'
     sourceCompatibility = '1.11'
     targetCompatibility = '1.11'
 
